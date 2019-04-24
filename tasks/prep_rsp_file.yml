@@ -16,7 +16,7 @@
   with_items:
     - { regex: oracle.install.responseFileVersion, value: "/oracle/install/rspfmt_dbinstall_response_schema_v11_2_0" }
     - { regex: oracle.install.option, value: "{{ install_mode }}" }
-    - { regex: ORACLE_HOSTNAME, value: "{{ ansible_hostname }}" }
+    - { regex: ORACLE_HOSTNAME, value: "{{ ansible_default_ipv4.address }}" }
     - { regex: UNIX_GROUP_NAME, value: "{{ oracle_group[0].name }}" }
     - { regex: INVENTORY_LOCATION, value: "{{ oracle_base }}/oraInventory" }
     - { regex: SELECTED_LANGUAGES, value: "en" }

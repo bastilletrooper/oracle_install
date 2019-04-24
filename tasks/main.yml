@@ -9,11 +9,11 @@
 - name: ensure the hostname entry exist in /etc/hosts
   lineinfile:
     path: /etc/hosts
-    regexp: "^{{ ansible_host }}"
-    line: "{{ ansible_host }} {{inventory_hostname}}"
+    regexp: "^{{ ansible_default_ipv4.address }}"
+    line: "{{ ansible_default_ipv4.address }} {{ansible_default_ipv4.address}}"
 
 - name: set the hostname
-  hostname: name="{{ inventory_hostname }}"
+  hostname: name="{{ ansible_default_ipv4.address }}"
 
 - name: check for the pv for oravg
   stat: path="{{ oracle_pv }}"
@@ -24,7 +24,7 @@
 - include: filesystems.yml
   when: pv.stat.isblk is defined
 
-#- name: check enough free space to continue 
+#- name: check enough free space to continue
 #  assert:
 #    that:
 #      - item.mount == "{{ oracle_bin_fs }}" and item.size_available < 5368709120
@@ -42,7 +42,7 @@
 - include: prereqs.yml
 
 - block:
-    - name: disable setenforce 
+    - name: disable setenforce
       command: /usr/sbin/setenforce 0
       ignore_errors: yes
 
