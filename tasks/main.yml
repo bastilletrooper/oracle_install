@@ -9,11 +9,11 @@
 - name: ensure the hostname entry exist in /etc/hosts
   lineinfile:
     path: /etc/hosts
-    regexp: "^{{ ansible_default_ipv4.address }}"
-    line: "{{ ansible_default_ipv4.address }} {{ansible_default_ipv4.address}}"
+    regexp: "^{{ ansible_eth0.ipv4.address }}"
+    line: "{{ ansible_eth0.ipv4.address }} {{ inventory_hostname }}"
 
 - name: set the hostname
-  hostname: name="{{ ansible_default_ipv4.address }}"
+  hostname: name="{{ inventory_hostname }}"
 
 - name: check for the pv for oravg
   stat: path="{{ oracle_pv }}"
